@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectfilter } from 'redux/selectors';
 
 import {
   Contact,
@@ -8,22 +7,19 @@ import {
   ContactListUl,
 } from './ContactList.styled';
 
-import { deleteContact } from 'redux/contactSlice';
+import { deleteContact } from 'redux/options';
+import { selectorFilterContact, selectorIsLoading } from 'redux/selectors';
 
 export const ContactList = () => {
-  const contacts = useSelector(selectContacts);
-
-  const filter = useSelector(selectfilter);
+  const contactsFilteredByName = useSelector(selectorFilterContact);
+  const isLoading = useSelector(selectorIsLoading);
   const dispatch = useDispatch();
 
-  const contactsFilteredByName = contacts?.filter(contact =>
-    contact.name.toLowerCase().includes(filter)
-  );
-
   const deleteContacts = id => dispatch(deleteContact(id));
+
   return (
     <>
-      {contactsFilteredByName.length === 0 && (
+      {contactsFilteredByName.length === 0 && !isLoading && (
         <p style={{ marginTop: '10px', color: 'red' }}>
           Your contacts 
         </p>

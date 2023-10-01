@@ -6,10 +6,10 @@ const tasksInitialState = {
 
 export const contactsFilter = createSlice({
   name: 'filters',
-  initialState: tasksInitialState.filters,
+  initialState: tasksInitialState,
   reducers: {
     filterContacts: (state, action) => {
-      return (state = action.payload);
+      state.filters = action.payload;
     },
   },
 });
